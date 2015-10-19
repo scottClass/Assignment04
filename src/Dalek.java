@@ -17,4 +17,25 @@ public class Dalek {
         row = startRow;
         col = startCol;
     }
+    
+    public void advanceTowards(Doctor doc) {
+        
+    }
+    
+    public void crash() {
+        
+    }
+    
+    public boolean hasCrashed() {
+        return hasCrashed = true;
+    }
+    
+    public int getRow() {
+        return this.row;
+    }
+    
+    public int getCol() {
+        return this.col;
+    }
+    
 }
