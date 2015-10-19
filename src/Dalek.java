@@ -21,19 +21,19 @@ public class Dalek {
     
     public void advanceTowards(Doctor doc) {
         moved = false;
-        if(doc.getRow() < col && !moved) {
+        if(doc.getRow() < col ) {
             col --;
             moved = true;
         }
-        if(doc.getCol() > col && !moved) {
+        if(doc.getCol() > col  ) {
             col ++;
             moved = true;
         }
-        if(doc.getRow() < row && !moved) {
+        if(doc.getRow() < row && row > 0) {
             row --;
            moved = true;
         }
-        if(doc.getRow() > row && !moved) {
+        if(doc.getRow() > row && row < 8) {
             row ++;
             moved = true;
         }

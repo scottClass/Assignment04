@@ -45,10 +45,26 @@ public class Game {
             board.putPiece(d1.getRow(), d1.getCol(), Color.red);
             board.putPiece(d2.getRow(), d2.getCol(), Color.red);
             board.putPiece(d3.getRow(), d3.getCol(), Color.red);
-            
+
+            board.removePiece(d1.getRow(), d1.getCol());
+            board.removePiece(d2.getRow(), d2.getCol());
+            board.removePiece(d3.getRow(), d3.getCol());
+
             d1.advanceTowards(doc);
             d2.advanceTowards(doc);
             d3.advanceTowards(doc);
+
+            board.putPiece(d1.getRow(), d1.getCol(), Color.red);
+            board.putPiece(d2.getRow(), d2.getCol(), Color.red);
+            board.putPiece(d3.getRow(), d3.getCol(), Color.red);
+
+            Coordinate c = board.getClick();
+            board.removePiece(doc.getRow(), doc.getCol());
+            int row = c.getRow();
+            int col = c.getCol();
+            doc.move(row, col);
+            
+
         }
     }
 }
