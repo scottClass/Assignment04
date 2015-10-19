@@ -29,11 +29,11 @@ public class Dalek {
             col ++;
             moved = true;
         }
-        if(doc.getRow() < row && row > 0) {
+        if(doc.getRow() < row) {
             row --;
            moved = true;
         }
-        if(doc.getRow() > row && row < 8) {
+        if(doc.getRow() > row) {
             row ++;
             moved = true;
         }
