@@ -11,7 +11,6 @@ public class Dalek {
     
     private int row;
     private int col;
-    private boolean moved;
     private boolean hasCrashed;
     
     public Dalek(int startRow, int startCol) {
@@ -20,22 +19,17 @@ public class Dalek {
     }
     
     public void advanceTowards(Doctor doc) {
-        moved = false;
-        if(doc.getRow() < col ) {
+        if(doc.getRow() < col) {
             col --;
-            moved = true;
         }
-        if(doc.getCol() > col  ) {
+        if(doc.getCol() > col) {
             col ++;
-            moved = true;
         }
         if(doc.getRow() < row) {
             row --;
-           moved = true;
         }
         if(doc.getRow() > row) {
             row ++;
-            moved = true;
         }
     }
     

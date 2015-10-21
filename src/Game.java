@@ -62,7 +62,9 @@ public class Game {
             board.removePiece(doc.getRow(), doc.getCol());
             int row = c.getRow();
             int col = c.getCol();
+            doc.teleport(row, col);
             doc.move(row, col);
+            
             
 
         }
