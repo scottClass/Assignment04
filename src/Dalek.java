@@ -15,6 +15,7 @@ public class Dalek {
     private int row;
     private int col;
     private boolean hasCrashed = false;
+    private boolean hasMoved = false;
 
     public Dalek(int startRow, int startCol) {
         row = startRow;
@@ -25,34 +26,59 @@ public class Dalek {
      * @param doc the player the daleks are moving toward 
      */
     public void advanceTowards(Doctor doc) {
+        hasMoved = false;
         if (hasCrashed == false) {
-            if (doc.getRow() < col) {
-                col--;
+            if (doc.getRow() < this.col) {
+                this.col--;
+                hasMoved = true;
             }
-            if (doc.getCol() > col) {
-                col++;
+            if (doc.getCol() > this.col) {
+                this.col++;
+                hasMoved = true;
             }
-            if (doc.getRow() < row) {
-                row--;
+            if (doc.getRow() < this.row) {
+                this.row--;
+                hasMoved = true;
             }
-            if (doc.getRow() > row) {
-                row++;
+            if (doc.getRow() > this.row) {
+                this.row++;
+                hasMoved = true;
+            }
+            if(doc.getRow() == this.row && doc.getCol() < this.col && !hasMoved) {
+                this.col--;
+            }
+            if(doc.getRow() == this.row && doc.getCol() > this.col && !hasMoved) {
+                this.col++;
             }
         }
     }
-
-    public void crash() {
-        this.hasCrashed = true;
+    /**
+     * tells the colliding daleks that they haave crashed
+     * @param one First dalek 
+     * @param two Second dalek
+     */
+    public void crash(Dalek one, Dalek two) {
+        one.hasCrashed = true;
+        two.hasCrashed = true;
     }
-
+    /**
+     * 
+     * @return the dalek's value for hasCrashed
+     */
     public boolean hasCrashed() {
         return this.hasCrashed;
     }
-
+    /**
+     * 
+     * @return the dalek's row
+     */
     public int getRow() {
         return this.row;
     }
-
+    /**
+     * 
+     * @return the dalek's col
+     */
     public int getCol() {
         return this.col;
     }
