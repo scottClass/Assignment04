@@ -115,8 +115,8 @@ public class Game {
             try {
                 Thread.sleep(1000);
                 System.exit(0);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+            } catch(Exception e) {
+                e.printStackTrace();
             }
         }
     }
