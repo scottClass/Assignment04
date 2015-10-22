@@ -140,7 +140,7 @@ public class Game {
         //waits a little while before closing the program
         if(win || docDead) {
             try {
-                Thread.sleep(10000);
+                Thread.sleep(1000);
                 System.exit(0);
             } catch(Exception e) {
                 e.printStackTrace();
