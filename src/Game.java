@@ -1,6 +1,8 @@
 
 import java.awt.Color;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /*
  * To change this template, choose Tools | Templates
@@ -31,7 +33,8 @@ public class Game {
         int min = 0;
         int max = 7;
 
-        boolean done = false;
+        boolean win = false;
+        boolean docDead = false;
 
         GameBoard board = new GameBoard();
 
@@ -40,15 +43,15 @@ public class Game {
         Dalek d2 = new Dalek(randInt(min, max), randInt(min, max));
         Dalek d3 = new Dalek(randInt(min, max), randInt(min, max));
 
-        while (!done) {
+        while (!win) {
             board.putPiece(doc.getRow(), doc.getCol(), Color.green);
-            if (d1.hasCrashed() == false) {
+            if (!d1.hasCrashed()) {
                 board.putPiece(d1.getRow(), d1.getCol(), Color.gray);
             }
-            if (d2.hasCrashed() == false) {
+            if (!d2.hasCrashed()) {
                 board.putPiece(d2.getRow(), d2.getCol(), Color.gray);
             }
-            if (d3.hasCrashed() == false) {
+            if (!d3.hasCrashed() == false) {
                 board.putPiece(d3.getRow(), d3.getCol(), Color.gray);
             }
 
@@ -75,33 +78,46 @@ public class Game {
                 board.putPiece(d3.getRow(), d3.getCol(), Color.red);
             }
 
-            if (d1.hasCrashed() == false) {
+            if (!d1.hasCrashed()) {
                 d1.advanceTowards(doc);
                 board.putPiece(d1.getRow(), d1.getCol(), Color.gray);
             }
-            if (d2.hasCrashed() == false) {
+            if (!d2.hasCrashed()) {
                 d2.advanceTowards(doc);
                 board.putPiece(d2.getRow(), d2.getCol(), Color.gray);
             }
-            if (d3.hasCrashed() == false) {
+            if (!d3.hasCrashed()) {
                 d3.advanceTowards(doc);
                 board.putPiece(d3.getRow(), d3.getCol(), Color.gray);
             }
 
-            Coordinate c = board.getClick();
-            board.removePiece(doc.getRow(), doc.getCol());
-            int row = c.getRow();
-            int col = c.getCol();
-            if (col >= doc.getCol() + 2 || row >= doc.getRow() + 2) {
-                doc.teleport(row, col);
-            } else {
-                doc.move(row, col);
+            if (!docDead) {
+                Coordinate c = board.getClick();
+                board.removePiece(doc.getRow(), doc.getCol());
+                int row = c.getRow();
+                int col = c.getCol();
+                if (col >= doc.getCol() + 2 || row >= doc.getRow() + 2) {
+                    doc.teleport(row, col);
+                } else {
+                    doc.move(row, col);
+                }
+
             }
 
 
-
-
-
+            if (d1.hasCrashed() && d2.hasCrashed() && d3.hasCrashed()) {
+                win = true;
+                board.setMessage("You win!");
+            }
+        }
+        
+        if(win) {
+            try {
+                Thread.sleep(1000);
+                System.exit(0);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 }
