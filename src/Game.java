@@ -35,42 +35,72 @@ public class Game {
 
         GameBoard board = new GameBoard();
 
-        Doctor doc = new Doctor(5, 5);
+        Doctor doc = new Doctor(randInt(min, max), randInt(min, max));
         Dalek d1 = new Dalek(randInt(min, max), randInt(min, max));
         Dalek d2 = new Dalek(randInt(min, max), randInt(min, max));
         Dalek d3 = new Dalek(randInt(min, max), randInt(min, max));
 
         while (!done) {
-            board.putPiece(doc.getRow(), doc.getCol(), Color.blue);
-            board.putPiece(d1.getRow(), d1.getCol(), Color.red);
-            board.putPiece(d2.getRow(), d2.getCol(), Color.red);
-            board.putPiece(d3.getRow(), d3.getCol(), Color.red);
+            board.putPiece(doc.getRow(), doc.getCol(), Color.green);
+            if (d1.hasCrashed() == false) {
+                board.putPiece(d1.getRow(), d1.getCol(), Color.gray);
+            }
+            if (d2.hasCrashed() == false) {
+                board.putPiece(d2.getRow(), d2.getCol(), Color.gray);
+            }
+            if (d3.hasCrashed() == false) {
+                board.putPiece(d3.getRow(), d3.getCol(), Color.gray);
+            }
 
             board.removePiece(d1.getRow(), d1.getCol());
             board.removePiece(d2.getRow(), d2.getCol());
             board.removePiece(d3.getRow(), d3.getCol());
 
-            d1.advanceTowards(doc);
-            d2.advanceTowards(doc);
-            d3.advanceTowards(doc);
+            if (d1.getRow() == d2.getRow() && d1.getCol() == d2.getCol()) {
+                d1.crash();
+                d2.crash();
+                board.putPiece(d1.getRow(), d1.getCol(), Color.red);
+                board.putPiece(d2.getRow(), d2.getCol(), Color.red);
+            }
+            if (d1.getRow() == d3.getRow() && d1.getCol() == d3.getCol()) {
+                d1.crash();
+                d3.crash();
+                board.putPiece(d1.getRow(), d1.getCol(), Color.red);
+                board.putPiece(d3.getRow(), d3.getCol(), Color.red);
+            }
+            if (d2.getRow() == d3.getRow() && d2.getCol() == d3.getCol()) {
+                d2.crash();
+                d3.crash();
+                board.putPiece(d2.getRow(), d2.getCol(), Color.red);
+                board.putPiece(d3.getRow(), d3.getCol(), Color.red);
+            }
 
-            board.putPiece(d1.getRow(), d1.getCol(), Color.red);
-            board.putPiece(d2.getRow(), d2.getCol(), Color.red);
-            board.putPiece(d3.getRow(), d3.getCol(), Color.red);
+            if (d1.hasCrashed() == false) {
+                d1.advanceTowards(doc);
+                board.putPiece(d1.getRow(), d1.getCol(), Color.gray);
+            }
+            if (d2.hasCrashed() == false) {
+                d2.advanceTowards(doc);
+                board.putPiece(d2.getRow(), d2.getCol(), Color.gray);
+            }
+            if (d3.hasCrashed() == false) {
+                d3.advanceTowards(doc);
+                board.putPiece(d3.getRow(), d3.getCol(), Color.gray);
+            }
 
             Coordinate c = board.getClick();
             board.removePiece(doc.getRow(), doc.getCol());
             int row = c.getRow();
             int col = c.getCol();
-            if(col >= doc.getCol() + 2 || row >= doc.getRow() + 2) {
+            if (col >= doc.getCol() + 2 || row >= doc.getRow() + 2) {
                 doc.teleport(row, col);
             } else {
                 doc.move(row, col);
             }
-            
-            
-            
-            
+
+
+
+
 
         }
     }
