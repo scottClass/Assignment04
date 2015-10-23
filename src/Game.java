@@ -33,7 +33,6 @@ public class Game {
         int min = 0;
         int max = 7;
         
-        boolean firstTurn = true;
         boolean done = false;
         boolean win = false;
         boolean docDead = false;
