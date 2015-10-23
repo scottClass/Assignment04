@@ -1,5 +1,4 @@
 
-import java.awt.Color;
 
 /*
  * To change this template, choose Tools | Templates
@@ -28,11 +27,11 @@ public class Dalek {
     public void advanceTowards(Doctor doc) {
         hasMoved = false;
         if (hasCrashed == false) {
-            if (doc.getRow() < this.col) {
+            if (doc.getRow() < this.col && this.col != 0) {
                 this.col--;
                 hasMoved = true;
             }
-            if (doc.getCol() > this.col) {
+            if (doc.getCol() > this.col && this.col != 7) {
                 this.col++;
                 hasMoved = true;
             }

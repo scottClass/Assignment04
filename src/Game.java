@@ -1,8 +1,6 @@
 
 import java.awt.Color;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /*
  * To change this template, choose Tools | Templates
@@ -16,11 +14,8 @@ public class Game {
 
     public static int randInt(int min, int max) {
 
-        // Usually this can be a field rather than a method variable
         Random rand = new Random();
-
-        // nextInt is normally exclusive of the top value,
-        // so add 1 to make it inclusive
+        //generate a random number
         int randomNum = rand.nextInt((max - min) + 1) + min;
 
         return randomNum;
@@ -32,13 +27,13 @@ public class Game {
     public static void main(String[] args) {
         int min = 0;
         int max = 7;
-        
+
         boolean done = false;
         boolean win = false;
         boolean docDead = false;
 
         GameBoard board = new GameBoard();
-        
+
         //Starts each piece in a random location
         Doctor doc = new Doctor(randInt(min, max), randInt(min, max));
         Dalek d1 = new Dalek(randInt(min, max), randInt(min, max));
@@ -58,23 +53,23 @@ public class Game {
             if (!d3.hasCrashed() == false) {
                 board.putPiece(d3.getRow(), d3.getCol(), Color.gray);
             }
-            
+
             //Removes the daleks before placing them again
             board.removePiece(d1.getRow(), d1.getCol());
             board.removePiece(d2.getRow(), d2.getCol());
             board.removePiece(d3.getRow(), d3.getCol());
-            
+
             //checks if the daleks are colliding
             //if they do collide they turn red and are set to not move in the crash method
             if (d1.getRow() == d2.getRow() && d1.getCol() == d2.getCol()) {
                 d1.crash(d1, d2);
-                
+
                 board.putPiece(d1.getRow(), d1.getCol(), Color.red);
                 board.putPiece(d2.getRow(), d2.getCol(), Color.red);
             }
             if (d1.getRow() == d3.getRow() && d1.getCol() == d3.getCol()) {
                 d1.crash(d1, d3);
-                
+
                 board.putPiece(d1.getRow(), d1.getCol(), Color.red);
                 board.putPiece(d3.getRow(), d3.getCol(), Color.red);
             }
@@ -83,7 +78,7 @@ public class Game {
                 board.putPiece(d2.getRow(), d2.getCol(), Color.red);
                 board.putPiece(d3.getRow(), d3.getCol(), Color.red);
             }
-            
+
             //Checks if the daleks are still alive before moving them towards the doctor
             if (!d1.hasCrashed()) {
                 d1.advanceTowards(doc);
@@ -100,16 +95,16 @@ public class Game {
             //Checks if any of the daleks are dolliding with the doctor
             //if they are the doctor is dead and he turns red
             //and a game over message
-            if(doc.getRow() == d1.getRow() && doc.getCol() == d1.getCol()
+            if (doc.getRow() == d1.getRow() && doc.getCol() == d1.getCol()
                     || doc.getRow() == d2.getRow() && doc.getCol() == d2.getCol()
-                    ||doc.getRow() == d3.getRow() && doc.getCol() == d3.getCol()) {
-                done  = true;
+                    || doc.getRow() == d3.getRow() && doc.getCol() == d3.getCol()) {
+                done = true;
                 docDead = true;
                 board.removePiece(doc.getRow(), doc.getCol());
                 board.putPiece(doc.getRow(), doc.getCol(), Color.red);
                 board.setMessage("Game Over");
             }
-            
+
             //prevents the player from making moves while the doctor is dead
             if (!docDead) {
                 Coordinate c = board.getClick();
@@ -120,14 +115,14 @@ public class Game {
                 if (col >= doc.getCol() + 2 || row >= doc.getRow() + 2) {
                     //teleport the doctor to a random location
                     doc.teleport(row, col);
-                //If click is withing one space of the doctor
+                    //If click is within one space of the doctor
                 } else {
                     //Doctor moves to area clicked
                     doc.move(row, col);
                 }
 
             }
-            
+
             //if all daleks have crashed then the game is won
             if (d1.hasCrashed() && d2.hasCrashed() && d3.hasCrashed()) {
                 win = true;
@@ -135,15 +130,9 @@ public class Game {
                 board.setMessage("You win!");
             }
         }
-        
-        //waits a little while before closing the program
-        if(win || docDead) {
-            try {
-                Thread.sleep(1000);
-                System.exit(0);
-            } catch(Exception e) {
-                e.printStackTrace();
-            }
+        if (win) {
+            board.putPiece(doc.getRow(), doc.getCol(), Color.green);
         }
+
     }
 }
