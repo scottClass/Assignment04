@@ -16,6 +16,11 @@ public class Dalek {
     private boolean hasCrashed = false;
     private boolean hasMoved = false;
 
+    /**
+     * The initial row and col values of the dalek
+     * @param startRow the row at which the dalek starts
+     * @param startCol the col at which the dalek starts
+     */
     public Dalek(int startRow, int startCol) {
         row = startRow;
         col = startCol;
@@ -52,7 +57,7 @@ public class Dalek {
         }
     }
     /**
-     * tells the colliding daleks that they haave crashed
+     * tells the colliding daleks that they have crashed
      * @param one First dalek 
      * @param two Second dalek
      */

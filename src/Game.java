@@ -31,6 +31,7 @@ public class Game {
         boolean done = false;
         boolean win = false;
         boolean docDead = false;
+        int timesClicked = 0;
 
         GameBoard board = new GameBoard();
 
@@ -41,15 +42,18 @@ public class Game {
         Dalek d3 = new Dalek(randInt(min, max), randInt(min, max));
 
         while (!done) {
+            
             //puts all peices down
             board.putPiece(doc.getRow(), doc.getCol(), Color.green);
             //checks if the peices are still active before putting them down
             if (!d1.hasCrashed()) {
                 board.putPiece(d1.getRow(), d1.getCol(), Color.gray);
             }
+            
             if (!d2.hasCrashed()) {
                 board.putPiece(d2.getRow(), d2.getCol(), Color.gray);
             }
+            
             if (!d3.hasCrashed() == false) {
                 board.putPiece(d3.getRow(), d3.getCol(), Color.gray);
             }
@@ -67,12 +71,14 @@ public class Game {
                 board.putPiece(d1.getRow(), d1.getCol(), Color.red);
                 board.putPiece(d2.getRow(), d2.getCol(), Color.red);
             }
+            
             if (d1.getRow() == d3.getRow() && d1.getCol() == d3.getCol()) {
                 d1.crash(d1, d3);
 
                 board.putPiece(d1.getRow(), d1.getCol(), Color.red);
                 board.putPiece(d3.getRow(), d3.getCol(), Color.red);
             }
+            
             if (d2.getRow() == d3.getRow() && d2.getCol() == d3.getCol()) {
                 d2.crash(d2, d3);
                 board.putPiece(d2.getRow(), d2.getCol(), Color.red);
@@ -84,14 +90,17 @@ public class Game {
                 d1.advanceTowards(doc);
                 board.putPiece(d1.getRow(), d1.getCol(), Color.gray);
             }
+            
             if (!d2.hasCrashed()) {
                 d2.advanceTowards(doc);
                 board.putPiece(d2.getRow(), d2.getCol(), Color.gray);
             }
+            
             if (!d3.hasCrashed()) {
                 d3.advanceTowards(doc);
                 board.putPiece(d3.getRow(), d3.getCol(), Color.gray);
             }
+            
             //Checks if any of the daleks are dolliding with the doctor
             //if they are the doctor is dead and he turns red
             //and a game over message
@@ -120,9 +129,12 @@ public class Game {
                     //Doctor moves to area clicked
                     doc.move(row, col);
                 }
-
+                //tells the player how many moves they have made
+                timesClicked ++;
+                board.setMessage("You have clicked " + timesClicked + " times");
             }
-
+            
+            
             //if all daleks have crashed then the game is won
             if (d1.hasCrashed() && d2.hasCrashed() && d3.hasCrashed()) {
                 win = true;
