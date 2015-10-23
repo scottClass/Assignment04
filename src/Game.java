@@ -132,8 +132,8 @@ public class Game {
                 //tells the player how many moves they have made
                 timesClicked ++;
                 board.setMessage("You have clicked " + timesClicked + " times");
-            }
-            
+            } 
+           
             
             //if all daleks have crashed then the game is won
             if (d1.hasCrashed() && d2.hasCrashed() && d3.hasCrashed()) {
