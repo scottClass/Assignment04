@@ -64,7 +64,7 @@ public class Game {
             board.removePiece(d3.getRow(), d3.getCol());
 
             //checks if the daleks are colliding
-            //if they do collide they turn red and are set to not move in the crash method
+            //if they do collide they turn red and are set to not move 
             if (d1.getRow() == d2.getRow() && d1.getCol() == d2.getCol()) {
                 d1.crash(d1, d2);
 
