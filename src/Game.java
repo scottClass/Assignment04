@@ -115,6 +115,7 @@ public class Game {
             }
 
             //prevents the player from making moves while the doctor is dead
+            //if the doctor is still alive the coordinates of the click are collected
             if (!docDead) {
                 Coordinate c = board.getClick();
                 board.removePiece(doc.getRow(), doc.getCol());
