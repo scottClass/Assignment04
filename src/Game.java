@@ -110,7 +110,7 @@ public class Game {
                 done = true;
                 docDead = true;
                 board.removePiece(doc.getRow(), doc.getCol());
-                board.putPiece(doc.getRow(), doc.getCol(), Color.red);
+                board.putPiece(doc.getRow(), doc.getCol(), Color.yellow);
                 board.setMessage("Game Over");
             }
 
