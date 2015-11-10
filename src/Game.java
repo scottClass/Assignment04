@@ -143,7 +143,7 @@ public class Game {
                 board.setMessage("You win!");
             }
         }
-        //if the doctor won it keeps it's piece on the board
+        //if the doctor won it keeps its piece on the board
         if (win) {
             board.putPiece(doc.getRow(), doc.getCol(), Color.green);
         }
