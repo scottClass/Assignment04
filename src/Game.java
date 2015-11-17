@@ -141,6 +141,7 @@ public class Game {
                 win = true;
                 done = true;
                 board.setMessage("You win!");
+                break;
             }
         }
         //if the doctor won it keeps its piece on the board
